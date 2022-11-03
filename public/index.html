@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Layanan Open Source (LOS) Prostesis Lengan</title>
+
+  <script src="stl_viewer.min.js"></script>
+  <script src="three.min.js"></script>
+  <script src="webgl_detector.js"></script>
+  <script src="Projector.js"></script>
+  <script src="CanvasRenderer.js"></script>
+  <script src="OrbitControls.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="mobile-style.css">
+</head>
+
+<body>
+  <header>
+    <div class="container-fluid p-0">
+      <nav class="navbar navbar-expand-lg fixed-top" style="background-color: rgb(53, 54, 55);" id="mainNav">
+        <a class="navbar-brand js-scroll-trigger" href="index.html#home">
+          <img src="images/LM logo-02.svg" height="40" width="40">LOS-Limp</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <i class="fas fa-align-right text-light"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <div class="mr-auto"></div>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="index.html#home">BERANDA</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="index.html#monitor">DESAIN</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="file/Ross.pdf">PROSEDUR</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="index.html#about">TENTANG</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="file/roboticHandKakArya.STL">UNDUH FILE</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="container text-center" id="home">
+      <div class="row">
+        <div class="col-md-7 col-sm-12 text-white">
+          <div class="animasi">
+            Bebaskan dirimu untuk Indonesia yang lebih baik
+          </div>
+          <h1>LOS Limp</h1>
+          <p>
+            <!-- -->
+          </p>
+          <button class="btn btn-light px-5 py-2 primary-btn">
+            <a class="nav-link js-scroll-trigger" href="index.html#monitor" style="padding-top:0%"></a>
+              periksa ukuranmu
+          </button>
+
+        </div>
+        <div class="col-md-5 col-sm-12 h-25">
+            <img src="images/LM1-01.png" alt="Book"/>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main>
+    <!-- Progress Section -->
+    <section class="section-4" id="monitor">
+      <div class="container text-center">
+        <h1 class="text-dark">Parameter dan Dimensi Desain</h1>
+        <p class="text-secondary">Berikut adalah parameter yang ditentukan untuk desain tangan (<em>dapat disesuaikan dengan pasien*</em>)</p>
+          <div>
+            <table class="table">
+              <caption>*silakan periksa ukuran berdasarkan <b>PROSEDUR</b></caption>
+              <thead>
+                <tr>
+                  <th scope="col">Parameter</th>
+                  <th scope="col">Dimensi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td id="parameter-1">name</td>
+                  <td id="dimension-1">dimension</td>
+                </tr>
+                <tr>
+                  <td id="parameter-2">name</td>
+                  <td id="dimension-2">dimension</td>
+                </tr>
+                <tr>
+                  <td id="parameter-3">name</td>
+                  <td id="dimension-3">dimension</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+      <div>
+        <h2 class="text-dark about text-center" style="padding-top: 15vmin;">Tampilan Desain Prostesis</h2>
+      </div>
+      <div id="stl_cont" style="width:1500px;height:500px;margin:0 auto;">
+        
+        <!--canvas width="500" height="500" style="width: 500px; height: 500px;"></canvas-->
+        <script>
+          var stl_viewer=new StlViewer
+          (
+            document.getElementById("stl_cont"),
+            {
+              models:
+              [
+                {filename:"file/roboticHandKakArya.STL"}
+              ]
+            }
+          );
+        </script>
+        <script>mendeleyWebImporter = {
+          downloadPdfs(e,t) { return this._call('downloadPdfs', [e,t]); },
+          open() { return this._call('open', []); },
+          setLoginToken(e) { return this._call('setLoginToken', [e]); },
+          _call(methodName, methodArgs) {
+            const id = Math.random();
+            window.postMessage({ id, token: '0.47595341683187287', methodName, methodArgs }, 'https://www.viewstl.com');
+            return new Promise(resolve => {
+              const listener = window.addEventListener('message', event => {
+                const data = event.data;
+                if (typeof data !== 'object' || !('result' in data) || data.id !== id) return;
+                window.removeEventListener('message', listener);
+                resolve(data.result);
+              });
+            });
+          }
+        };
+        </script>
+        <h6 class="text-center text dark"><br><em>setelah desain sesuai,</em></br> <br><em> melalui</em> <b>UNDUH FILE</b></h6>
+      </div>
+    </section>
+    <section>
+      
+    </section>
+  </main>
+  <footer>
+    <div class="container-fluid p-0" id="about">
+      <div class="row ">
+        <div class="col-md-12 col-sm-12">
+          <h2 class="text-light about text-center" style="padding-bottom: 5vmin;">Tentang LOS Limp</h2>
+          <p class="text-light text-justify"><em>LOS-Limp</em> memiliki padanan makna yakni untuk menghilangkan kelumpuhan (khususnya pada lengan). Hal ini mendorong untuk merekonstruksi
+            fungsi lengan yang hilang pada pasien Pasca Amputasi. Merekonstruksi fungsi lengan akan membawa pasien beserta orang terdekat (masyarakat) untuk memiliki kualitas hidup yang lebih baik, dengan
+            salah satunya mendorong produktivitas pasien Pasca Amputasi.
+          </p>
+          <p class="text-light text-justify">Kami mengajak pihak-pihak (<em><b>pemerintah, lembaga non-profit, manufakturer</b></em>) untuk ikut meningkatkan ekspansi
+            terhadap akses prostesis lengan melalui platform LOS-Limp ini.
+          </p>
+          <h4 class="text-light text-center" style="padding-top: 5vmin;">"Bersama LOS Limp, tingkatkan kualitas hidup Indonesia"</h4>
+          </p>
+        </div>
+        <!--
+
+
+        <div class="col-md-5 col-sm-12">
+          <h4 class="text-light">Newsletter</h4>
+          <p class="text-muted">Stay Updated</p>
+          <form class="form-inline">
+            <div class="col pl-0">
+              <div class="input-group pr-5">
+                <input type="text" class="form-control bg-dark text-white" id="inlineFormInputGroupUsername2" placeholder="Email">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i class="fas fa-arrow-right"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        -->
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="main.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom JavaScript for this theme -->
+  <script src="js/scrolling-nav.js"></script>
+
+</body>
+
+</html>
